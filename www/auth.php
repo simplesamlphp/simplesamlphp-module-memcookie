@@ -27,11 +27,8 @@ $s->requireAuth();
 
 // generate session id and save it in a cookie
 $sessionID = Utils\Random::generateID();
-
 $cookieName = $amc_cf->getCookieName();
-
-$sessionHandler = \SimpleSAML_SessionHandler::getSessionHandler();
-$sessionHandler->setCookie($cookieName, $sessionID);
+\SimpleSAML\Utils\HTTP::setCookie($cookieName, $sessionID);
 
 // generate the authentication information
 $attributes = $s->getAttributes();
