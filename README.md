@@ -44,13 +44,13 @@ find also in `extra/auth_memcookie.conf`) might be helpful:
 ```
 <Location />
         # This is a list of memcache servers which Auth MemCookie
-        # should use. It is a ','-separated list of
-        # host:port-pairs.
+        # should use. 
         # Note that this list must list the same servers as the
         # 'authmemcookie.servers'-option in config.php in the
         # configuration for simpleSAMLphp.
-        # The syntax of this option are from : http://docs.libmemcached.org/libmemcached_configuration.html
-        Auth_memCookie_Memcached_AddrPort "--SERVER=127.0.0.1:11211"
+        #
+        # The syntax of this option are from : http://docs.libmemcached.org/libmemcached_configuration.html 
+        Auth_memCookie_Memcached_Configuration "--SERVER=127.0.0.1:11211"
 
         # This must be set to 'on' to enable Auth MemCookie for
         # this directory.
