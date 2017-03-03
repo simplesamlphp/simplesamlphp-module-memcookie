@@ -1,7 +1,7 @@
 SimpleSAMLphp AuthMemCookie module
 ==================================
 
-This module implements [Auth MemCookie](http://authmemcookie.sourceforge.net/) support for SimpleSAMLphp. This allows
+This module implements [Auth MemCookie](https://zenprojects.github.io/Apache-Authmemcookie-Module/) support for SimpleSAMLphp. This allows
 you to integrate SimpleSAMLphp with web applications written in languages other than PHP.
 
 *AuthMemCookie* works by reading authentication data from a *memcache* server and setting environment variables based on
@@ -15,7 +15,7 @@ This module requires you to install and set up the following requirements:
 
 * SimpleSAMLphp running as a [Service Provider](https://simplesamlphp.org/docs/stable/simplesamlphp-sp).
 * A *memcache* server.
-* [Auth MemCookie](http://authmemcookie.sourceforge.net/) .
+* [Auth MemCookie](https://zenprojects.github.io/Apache-Authmemcookie-Module/) .
 
 Installation
 ------------
@@ -49,7 +49,7 @@ find also in `extra/auth_memcookie.conf`) might be helpful:
         # Note that this list must list the same servers as the
         # 'authmemcookie.servers'-option in config.php in the
         # configuration for simpleSAMLphp.
-        Auth_memCookie_Memcached_AddrPort "127.0.0.1:11211"
+        Auth_memCookie_Memcached_AddrPort "--SERVER=127.0.0.1:11211"
 
         # This must be set to 'on' to enable Auth MemCookie for
         # this directory.
