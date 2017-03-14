@@ -5,7 +5,7 @@ use SimpleSAML\Module\memcookie\AuthMemCookie;
 
 /**
  * This file implements an script which can be used to authenticate users with Auth MemCookie.
- * See: http://authmemcookie.sourceforge.net/
+ * See: https://zenprojects.github.io/Apache-Authmemcookie-Module/
  *
  * The configuration for this script is stored in config/authmemcookie.php.
  *
