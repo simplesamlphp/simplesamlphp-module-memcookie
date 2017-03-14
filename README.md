@@ -49,7 +49,7 @@ find also in `extra/auth_memcookie.conf`) might be helpful:
         # 'authmemcookie.servers'-option in config.php in the
         # configuration for simpleSAMLphp.
         #
-        # The syntax of this option are from : http://docs.libmemcached.org/libmemcached_configuration.html 
+        # The syntax for this option is inherited from: http://docs.libmemcached.org/libmemcached_configuration.html 
         Auth_memCookie_Memcached_Configuration "--SERVER=127.0.0.1:11211"
 
         # This must be set to 'on' to enable Auth MemCookie for
