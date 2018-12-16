@@ -11,7 +11,6 @@ namespace SimpleSAML\Module\memcookie;
  */
 class AuthMemCookie
 {
-
     /**
      * @var AuthMemCookie This is the singleton instance of this class.
      */
@@ -19,7 +18,7 @@ class AuthMemCookie
 
 
     /**
-     * @var \SimpleSAML_Configuration The configuration for Auth MemCookie.
+     * @var \SimpleSAML\Configuration The configuration for Auth MemCookie.
      */
     private $config;
 
@@ -45,7 +44,7 @@ class AuthMemCookie
     private function __construct()
     {
         // load AuthMemCookie configuration
-        $this->config = \SimpleSAML_Configuration::getConfig('authmemcookie.php');
+        $this->config = \SimpleSAML\Configuration::getConfig('authmemcookie.php');
     }
 
 
