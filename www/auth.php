@@ -76,7 +76,11 @@ foreach ($authData as $n => $v) {
 
 $memcache = $amc_cf->getMemcache();
 $expirationTime = $s->getAuthData('Expire');
-$memcache->set($sessionID, $data, 0, $expirationTime);
+if ($memcache instanceof \Memcached) {
+    $memcache->set($sessionID, $data, $expirationTime);
+} else {
+    $memcache->set($sessionID, $data, 0, $expirationTime);
+}
 
 // register logout handler
 $session = \SimpleSAML\Session::getSessionFromRequest();

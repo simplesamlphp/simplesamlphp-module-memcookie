@@ -107,17 +107,22 @@ class AuthMemCookie
     /**
      * This function creates and initializes a Memcache object from our configuration.
      *
-     * @return \Memcache A Memcache object initialized from our configuration.
+     * @return \Memcache|\Memcached A Memcache object initialized from our configuration.
      */
     public function getMemcache()
     {
         $memcacheHost = $this->config->getString('memcache.host', '127.0.0.1');
         $memcachePort = $this->config->getInteger('memcache.port', 11211);
 
-        $memcache = new \Memcache;
+        $class = class_exists('\Memcache') ? '\Memcache' : (class_exists('\Memcached') ? '\Memcached' : false);
+        $memcache = new $class;
 
         foreach (explode(',', $memcacheHost) as $memcacheHost) {
-            $memcache->addServer($memcacheHost, $memcachePort);
+            if ($memcache instanceof \Memcached) {
+                $memcache->addServer($memcacheHost, $memcachePort);
+            } else {
+                $memcache->addServer($memcacheHost, $memcachePort, true);
+            }
         }
 
         return $memcache;
