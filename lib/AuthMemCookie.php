@@ -115,6 +115,11 @@ class AuthMemCookie
         $memcachePort = $this->config->getInteger('memcache.port', 11211);
 
         $class = class_exists('\Memcache') ? '\Memcache' : (class_exists('\Memcached') ? '\Memcached' : false);
+
+        if (!$class) {
+            throw new Exception('Missing Memcached implementation. You must install either the Memcache or Memcached extension.');
+        }
+
         $memcache = new $class;
 
         foreach (explode(',', $memcacheHost) as $memcacheHost) {
