@@ -11,7 +11,6 @@ namespace SimpleSAML\Module\memcookie;
  */
 class AuthMemCookie
 {
-
     /**
      * @var AuthMemCookie This is the singleton instance of this class.
      */
@@ -19,7 +18,7 @@ class AuthMemCookie
 
 
     /**
-     * @var \SimpleSAML_Configuration The configuration for Auth MemCookie.
+     * @var \SimpleSAML\Configuration The configuration for Auth MemCookie.
      */
     private $config;
 
@@ -45,7 +44,7 @@ class AuthMemCookie
     private function __construct()
     {
         // load AuthMemCookie configuration
-        $this->config = \SimpleSAML_Configuration::getConfig('authmemcookie.php');
+        $this->config = \SimpleSAML\Configuration::getConfig('authmemcookie.php');
     }
 
 
@@ -95,7 +94,7 @@ class AuthMemCookie
     /**
      * This function retrieves the name of the attribute which contains the groups from the configuration.
      *
-     * @return string The name of the attribute which contains the groups.
+     * @return string|null The name of the attribute which contains the groups.
      */
     public function getGroupsAttr()
     {
@@ -108,17 +107,27 @@ class AuthMemCookie
     /**
      * This function creates and initializes a Memcache object from our configuration.
      *
-     * @return \Memcache A Memcache object initialized from our configuration.
+     * @return \Memcache|\Memcached A Memcache object initialized from our configuration.
      */
     public function getMemcache()
     {
         $memcacheHost = $this->config->getString('memcache.host', '127.0.0.1');
         $memcachePort = $this->config->getInteger('memcache.port', 11211);
 
-        $memcache = new \Memcache;
+        $class = class_exists('\Memcache') ? '\Memcache' : (class_exists('\Memcached') ? '\Memcached' : false);
+
+        if (!$class) {
+            throw new Exception('Missing Memcached implementation. You must install either the Memcache or Memcached extension.');
+        }
+
+        $memcache = new $class;
 
         foreach (explode(',', $memcacheHost) as $memcacheHost) {
-            $memcache->addServer($memcacheHost, $memcachePort);
+            if ($memcache instanceof \Memcached) {
+                $memcache->addServer($memcacheHost, $memcachePort);
+            } else {
+                $memcache->addServer($memcacheHost, $memcachePort, true);
+            }
         }
 
         return $memcache;
@@ -127,6 +136,7 @@ class AuthMemCookie
 
     /**
      * This function logs the user out by deleting the session information from memcache.
+     * @return void
      */
     private function doLogout()
     {
@@ -150,6 +160,7 @@ class AuthMemCookie
 
     /**
      * This function implements the logout handler. It deletes the information from Memcache.
+     * @return void
      */
     public static function logoutHandler()
     {
