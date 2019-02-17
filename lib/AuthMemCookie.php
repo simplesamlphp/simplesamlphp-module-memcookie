@@ -94,7 +94,7 @@ class AuthMemCookie
     /**
      * This function retrieves the name of the attribute which contains the groups from the configuration.
      *
-     * @return string The name of the attribute which contains the groups.
+     * @return string|null The name of the attribute which contains the groups.
      */
     public function getGroupsAttr()
     {
@@ -131,6 +131,7 @@ class AuthMemCookie
 
     /**
      * This function logs the user out by deleting the session information from memcache.
+     * @return void
      */
     private function doLogout()
     {
@@ -154,6 +155,7 @@ class AuthMemCookie
 
     /**
      * This function implements the logout handler. It deletes the information from Memcache.
+     * @return void
      */
     public static function logoutHandler()
     {

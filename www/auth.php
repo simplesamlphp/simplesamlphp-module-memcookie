@@ -33,7 +33,7 @@ Utils\HTTP::setCookie($cookieName, $sessionID);
 // generate the authentication information
 $attributes = $s->getAttributes();
 
-$authData = array();
+$authData = [];
 
 // username
 $usernameAttr = $amc_cf->getUsernameAttr();
@@ -56,7 +56,7 @@ if ($groupsAttr !== null) {
     }
     $authData['Groups'] = $attributes[$groupsAttr];
 } else {
-    $authData['Groups'] = array();
+    $authData['Groups'] = [];
 }
 
 $authData['RemoteIP'] = $_SERVER['REMOTE_ADDR'];
