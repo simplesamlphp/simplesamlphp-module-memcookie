@@ -12,7 +12,7 @@ namespace SimpleSAML\Module\memcookie;
 class AuthMemCookie
 {
     /**
-     * @var AuthMemCookie This is the singleton instance of this class.
+     * @var AuthMemCookie|null This is the singleton instance of this class.
      */
     private static $instance = null;
 
@@ -117,9 +117,10 @@ class AuthMemCookie
         $class = class_exists('\Memcache') ? '\Memcache' : (class_exists('\Memcached') ? '\Memcached' : false);
 
         if (!$class) {
-            throw new Exception('Missing Memcached implementation. You must install either the Memcache or Memcached extension.');
+            throw new \Exception('Missing Memcached implementation. You must install either the Memcache or Memcached extension.');
         }
 
+        /** @psalm-suppress InvalidStringClass */
         $memcache = new $class;
 
         foreach (explode(',', $memcacheHost) as $memcacheHost) {
@@ -130,6 +131,7 @@ class AuthMemCookie
             }
         }
 
+        /** @var \Memcache|\Memcached $memcache */
         return $memcache;
     }
 
