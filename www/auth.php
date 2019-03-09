@@ -1,8 +1,5 @@
 <?php
 
-use SimpleSAML\Utils;
-use SimpleSAML\Module\memcookie\AuthMemCookie;
-
 /**
  * This file implements an script which can be used to authenticate users with Auth MemCookie.
  * See: https://zenprojects.github.io/Apache-Authmemcookie-Module/
@@ -12,6 +9,9 @@ use SimpleSAML\Module\memcookie\AuthMemCookie;
  * The file extra/auth_memcookie.conf contains an example of how Auth Memcookie can be configured
  * to use SimpleSAMLphp.
  */
+
+use SimpleSAML\Utils;
+use SimpleSAML\Module\memcookie\AuthMemCookie;
 
 // load SimpleSAMLphp configuration
 $ssp_cf = \SimpleSAML\Configuration::getInstance();
@@ -37,9 +37,9 @@ $authData = [];
 
 // username
 $usernameAttr = $amc_cf->getUsernameAttr();
-if (!array_key_exists($usernameAttr, $attributes)) {
+if ($usernameAttr === null || !array_key_exists($usernameAttr, $attributes)) {
     throw new \SimpleSAML\Error\Exception(
-        "The user doesn't have an attribute named '".$usernameAttr.
+        "The user doesn't have an attribute named '" . $usernameAttr .
         "'. This attribute is expected to contain the username."
     );
 }
@@ -50,7 +50,7 @@ $groupsAttr = $amc_cf->getGroupsAttr();
 if ($groupsAttr !== null) {
     if (!array_key_exists($groupsAttr, $attributes)) {
         throw new \SimpleSAML\Error\Exception(
-            "The user doesn't have an attribute named '".$groupsAttr.
+            "The user doesn't have an attribute named '" . $groupsAttr .
             "'. This attribute is expected to contain the groups the user is a member of."
         );
     }
@@ -62,7 +62,7 @@ if ($groupsAttr !== null) {
 $authData['RemoteIP'] = $_SERVER['REMOTE_ADDR'];
 
 foreach ($attributes as $n => $v) {
-    $authData['ATTR_'.$n] = $v;
+    $authData['ATTR_' . $n] = $v;
 }
 
 // store the authentication data in the memcache server
@@ -71,16 +71,12 @@ foreach ($authData as $n => $v) {
     if (is_array($v)) {
         $v = implode(':', $v);
     }
-    $data .= $n.'='.$v."\r\n";
+    $data .= $n . '=' . $v . "\r\n";
 }
 
 $memcache = $amc_cf->getMemcache();
 $expirationTime = $s->getAuthData('Expire');
-if ($memcache instanceof \Memcached) {
-    $memcache->set($sessionID, $data, $expirationTime);
-} else {
-    $memcache->set($sessionID, $data, 0, $expirationTime);
-}
+$memcache->set($sessionID, $data, $expirationTime ?? 0);
 
 // register logout handler
 $session = \SimpleSAML\Session::getSessionFromRequest();

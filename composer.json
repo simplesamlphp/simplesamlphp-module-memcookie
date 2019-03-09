@@ -16,11 +16,14 @@
     }
   ],
   "require": {
-    "simplesamlphp/composer-module-installer": ">=1.1.6"
+    "php": ">=7.2",
+    "ext-memcached": "*",
+    "simplesamlphp/composer-module-installer": ">=1.1.6",
+    "simplesamlphp/simplesamlphp": "dev-master"
   },
   "require-dev": {
-    "simplesamlphp/simplesamlphp": "^1.16",
-    "phpunit/phpunit": "~4.8.35"
+    "phpunit/phpunit": "~8.5",
+    "simplesamlphp/simplesamlphp-test-framework": "^0.1.0"
   },
   "support": {
     "issues": "https://github.com/simplesamlphp/simplesamlphp-module-memcookie/issues",

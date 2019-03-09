@@ -29,4 +29,9 @@
         <UnusedClass errorLevel="info" />
         <PossiblyUnusedMethod errorLevel="info" />
     </issueHandlers>
+
+    <stubs>
+        <file name="vendor/simplesamlphp/simplesamlphp-test-framework/stubs/memcache.php" />
+        <file name="vendor/simplesamlphp/simplesamlphp-test-framework/stubs/memcached.php" />
+    </stubs>
 </psalm>

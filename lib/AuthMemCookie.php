@@ -12,10 +12,9 @@ namespace SimpleSAML\Module\memcookie;
 class AuthMemCookie
 {
     /**
-     * @var AuthMemCookie This is the singleton instance of this class.
+     * @var AuthMemCookie|null This is the singleton instance of this class.
      */
     private static $instance = null;
-
 
     /**
      * @var \SimpleSAML\Configuration The configuration for Auth MemCookie.
@@ -26,9 +25,9 @@ class AuthMemCookie
     /**
      * This function is used to retrieve the singleton instance of this class.
      *
-     * @return AuthMemCookie The singleton instance of this class.
+     * @return \SimpleSAML\Module\memcookie\AuthMemCookie The singleton instance of this class.
      */
-    public static function getInstance()
+    public static function getInstance(): AuthMemCookie
     {
         if (self::$instance === null) {
             self::$instance = new AuthMemCookie();
@@ -53,7 +52,7 @@ class AuthMemCookie
      *
      * @return string The login type which should be used for Auth MemCookie.
      */
-    public function getAuthSource()
+    public function getAuthSource(): string
     {
         return $this->config->getString('authsource');
     }
@@ -65,7 +64,7 @@ class AuthMemCookie
      * @return string The name of the cookie.
      * @throws \Exception If the value of the 'cookiename' configuration option is invalid.
      */
-    public function getCookieName()
+    public function getCookieName(): string
     {
         $cookieName = $this->config->getString('cookiename', 'AuthMemCookie');
         if (!is_string($cookieName) || strlen($cookieName) === 0) {
@@ -81,13 +80,11 @@ class AuthMemCookie
     /**
      * This function retrieves the name of the attribute which contains the username from the configuration.
      *
-     * @return string The name of the attribute which contains the username.
+     * @return string|null The name of the attribute which contains the username.
      */
-    public function getUsernameAttr()
+    public function getUsernameAttr(): ?string
     {
-        $usernameAttr = $this->config->getString('username', null);
-
-        return $usernameAttr;
+        return $this->config->getString('username', null);
     }
 
 
@@ -96,38 +93,32 @@ class AuthMemCookie
      *
      * @return string|null The name of the attribute which contains the groups.
      */
-    public function getGroupsAttr()
+    public function getGroupsAttr(): ?string
     {
-        $groupsAttr = $this->config->getString('groups', null);
-
-        return $groupsAttr;
+        return $this->config->getString('groups', null);
     }
 
 
     /**
      * This function creates and initializes a Memcache object from our configuration.
      *
-     * @return \Memcache|\Memcached A Memcache object initialized from our configuration.
+     * @return \Memcached A Memcache object initialized from our configuration.
      */
-    public function getMemcache()
+    public function getMemcache(): \Memcached
     {
         $memcacheHost = $this->config->getString('memcache.host', '127.0.0.1');
         $memcachePort = $this->config->getInteger('memcache.port', 11211);
 
-        $class = class_exists('\Memcache') ? '\Memcache' : (class_exists('\Memcached') ? '\Memcached' : false);
+        $class = class_exists('\Memcached') ? '\Memcached' : false;
 
         if (!$class) {
-            throw new Exception('Missing Memcached implementation. You must install either the Memcache or Memcached extension.');
+            throw new \Exception('Missing Memcached implementation. You must install either the Memcached extension.');
         }
 
-        $memcache = new $class;
+        $memcache = new \Memcached();
 
         foreach (explode(',', $memcacheHost) as $memcacheHost) {
-            if ($memcache instanceof \Memcached) {
-                $memcache->addServer($memcacheHost, $memcachePort);
-            } else {
-                $memcache->addServer($memcacheHost, $memcachePort, true);
-            }
+            $memcache->addServer($memcacheHost, $memcachePort);
         }
 
         return $memcache;
@@ -138,7 +129,7 @@ class AuthMemCookie
      * This function logs the user out by deleting the session information from memcache.
      * @return void
      */
-    private function doLogout()
+    private function doLogout(): void
     {
         $cookieName = $this->getCookieName();
 
@@ -162,7 +153,7 @@ class AuthMemCookie
      * This function implements the logout handler. It deletes the information from Memcache.
      * @return void
      */
-    public static function logoutHandler()
+    public static function logoutHandler(): void
     {
         self::getInstance()->doLogout();
     }
