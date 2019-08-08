@@ -31,7 +31,7 @@
     </issueHandlers>
 
     <stubs>
-        <file name="tests/Utils/Stubs/memcache.php" />
-        <file name="tests/Utils/Stubs/memcached.php" />
+        <file name="vendor/simplesamlphp/simplesamlphp-test-framework/stubs/memcache.php" />
+        <file name="vendor/simplesamlphp/simplesamlphp-test-framework/stubs/memcached.php" />
     </stubs>
 </psalm>

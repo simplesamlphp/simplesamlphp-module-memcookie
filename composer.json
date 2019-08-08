@@ -20,8 +20,9 @@
     "simplesamlphp/composer-module-installer": ">=1.1.6"
   },
   "require-dev": {
+    "phpunit/phpunit": "~5.7",
     "simplesamlphp/simplesamlphp": "^1.17",
-    "phpunit/phpunit": "~5.7"
+    "simplesamlphp/simplesamlphp-test-framework": "^0.0.6"
   },
   "support": {
     "issues": "https://github.com/simplesamlphp/simplesamlphp-module-memcookie/issues",
