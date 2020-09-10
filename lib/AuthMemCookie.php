@@ -6,7 +6,6 @@ namespace SimpleSAML\Module\memcookie;
  * This is a helper class for the Auth MemCookie module.
  * It handles the configuration, and implements the logout handler.
  *
- * @author Olav Morken, UNINETT AS.
  * @package SimpleSAMLphp
  */
 class AuthMemCookie
