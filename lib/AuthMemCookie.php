@@ -126,7 +126,6 @@ class AuthMemCookie
 
     /**
      * This function logs the user out by deleting the session information from memcache.
-     * @return void
      */
     private function doLogout(): void
     {
@@ -150,7 +149,6 @@ class AuthMemCookie
 
     /**
      * This function implements the logout handler. It deletes the information from Memcache.
-     * @return void
      */
     public static function logoutHandler(): void
     {
