@@ -1,3 +1,6 @@
+![Build Status](https://github.com/simplesamlphp/simplesamlphp-module-memcookie/workflows/CI/badge.svg?branch=master)
+[![Coverage Status](https://codecov.io/gh/simplesamlphp/simplesamlphp-module-memcookie/branch/master/graph/badge.svg)](https://codecov.io/gh/simplesamlphp/simplesamlphp-module-memcookie)
+
 SimpleSAMLphp AuthMemCookie module
 ==================================
 
