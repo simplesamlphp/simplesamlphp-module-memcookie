@@ -2,6 +2,11 @@
 
 namespace SimpleSAML\Module\memcookie;
 
+use Exception;
+use Memcached;
+use SimpleSAML\Configuration;
+use SimpleSAML\Utils;
+
 /**
  * This is a helper class for the Auth MemCookie module.
  * It handles the configuration, and implements the logout handler.
@@ -42,7 +47,7 @@ class AuthMemCookie
     private function __construct()
     {
         // load AuthMemCookie configuration
-        $this->config = \SimpleSAML\Configuration::getConfig('authmemcookie.php');
+        $this->config = Configuration::getConfig('module_authmemcookie.php');
     }
 
 
@@ -67,7 +72,7 @@ class AuthMemCookie
     {
         $cookieName = $this->config->getString('cookiename', 'AuthMemCookie');
         if (!is_string($cookieName) || strlen($cookieName) === 0) {
-            throw new \Exception(
+            throw new Exception(
                 "Configuration option 'cookiename' contains an invalid value. This option should be a string."
             );
         }
@@ -111,10 +116,10 @@ class AuthMemCookie
         $class = class_exists('\Memcached') ? '\Memcached' : false;
 
         if (!$class) {
-            throw new \Exception('Missing Memcached implementation. You must install either the Memcached extension.');
+            throw new Exception('Missing Memcached implementation. You must install either the Memcached extension.');
         }
 
-        $memcache = new \Memcached();
+        $memcache = new Memcached();
 
         foreach (explode(',', $memcacheHost) as $memcacheHost) {
             $memcache->addServer($memcacheHost, $memcachePort);
@@ -143,7 +148,7 @@ class AuthMemCookie
         $memcache->delete($sessionID);
 
         // delete the session cookie
-        \SimpleSAML\Utils\HTTP::setCookie($cookieName, null);
+        Utils\HTTP::setCookie($cookieName, null);
     }
 
 
