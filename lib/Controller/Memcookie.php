@@ -23,8 +23,20 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class Memcookie
 {
+    /**
+     * @var \SimpleSAML\Auth\Simple|string
+     * @psalm-var \SimpleSAML\Auth\Simple|class-string
+     */
+    protected $auth_simple = Auth\Simple::class;
+
     /** @var \SimpleSAML\Configuration */
     protected $config;
+
+    /**
+     * @var \SimpleSAML\Utils\HTTP|string
+     * @psalm-var \SimpleSAML\Utils\HTTP|class-string
+     */
+    protected $http_utils = Utils\HTTP::class;
 
     /** @var \SimpleSAML\Session */
     protected $session;
@@ -50,6 +62,28 @@ class Memcookie
 
 
     /**
+     * Inject the \SimpleSAML\Auth\Simple dependency.
+     *
+     * @param \SimpleSAML\Auth\Simple $authSimple
+     */
+    public function setAuthSimple(Auth\Simple $authSimple): void
+    {
+        $this->auth_simple = $authSimple;
+    }
+
+
+    /**
+     * Inject the \SimpleSAML\Utils\HTTP dependency.
+     *
+     * @param \SimpleSAML\Utils\HTTP $httpUtils
+     */
+    public function setHttpUtils(Utils\HTTP $httpUtils): void
+    {
+        $this->http_utils = $httpUtils;
+    }
+
+
+    /**
      * This method implements an script which can be used to authenticate users with Auth MemCookie.
      * See: https://zenprojects.github.io/Apache-Authmemcookie-Module/
      *
@@ -70,7 +104,8 @@ class Memcookie
         $amc_cf = AuthMemCookie::getInstance();
 
         $sourceId = $amc_cf->getAuthSource();
-        $s = new Auth\Simple($sourceId);
+        $simple = $this->auth_simple;
+        $s = new $simple($sourceId);
 
         // check if the user is authorized. We attempt to authenticate the user if not
         $s->requireAuth();
@@ -78,7 +113,7 @@ class Memcookie
         // generate session id and save it in a cookie
         $sessionID = Utils\Random::generateID();
         $cookieName = $amc_cf->getCookieName();
-        Utils\HTTP::setCookie($cookieName, $sessionID);
+        $this->http_utils::setCookie($cookieName, $sessionID);
 
         // generate the authentication information
         $attributes = $s->getAttributes();
@@ -129,10 +164,9 @@ class Memcookie
         $memcache->set($sessionID, $data, $expirationTime ?? 0);
 
         // register logout handler
-        $session = $this->session::getSessionFromRequest();
-        $session->registerLogoutHandler($sourceId, '\SimpleSAML\Module\memcookie\AuthMemCookie', 'logoutHandler');
+        $this->session->registerLogoutHandler($sourceId, '\SimpleSAML\Module\memcookie\AuthMemCookie', 'logoutHandler');
 
         // redirect the user back to this page to signal that the login is completed
-        return RunnableResponse([Utils\HTTP::class, 'redirectTrustedURL'], [Utils\HTTP::getSelfURL()]);
+        return new RunnableResponse([$this->http_utils, 'redirectTrustedURL'], [$this->http_utils::getSelfURL()]);
     }
 }
