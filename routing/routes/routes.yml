@@ -1,0 +1,3 @@
+memcookie-main:
+  path: /
+  defaults: { _controller: 'SimpleSAML\Module\memcookie\Controller\Memcookie::main' }
