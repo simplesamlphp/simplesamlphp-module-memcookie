@@ -1,0 +1,139 @@
+<?php
+
+declare(strict_types=1);
+
+namespace SimpleSAML\Test\Module\memcookie\Controller;
+
+use PHPUnit\Framework\TestCase;
+use SimpleSAML\Auth;
+use SimpleSAML\Configuration;
+use SimpleSAML\Error;
+use SimpleSAML\HTTP\RunnableResponse;
+use SimpleSAML\Module\memcookie\Controller;
+use SimpleSAML\Session;
+use SimpleSAML\Utils;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * Set of tests for the controllers in the "memcookie" module.
+ *
+ * @package SimpleSAML\Test
+ */
+class MemcookieTest extends TestCase
+{
+    /** @var \SimpleSAML\Configuration */
+    protected $authsources;
+
+    /** @var \SimpleSAML\Configuration */
+    protected $config;
+
+    /** @var \SimpleSAML\Utils\HTTP */
+    protected $http_utils;
+
+    /** @var \SimpleSAML\Configuration */
+    protected $module_config;
+
+    /** @var \SimpleSAML\Session */
+    protected $session;
+
+
+    /**
+     * Set up for each test.
+     * @return void
+     */
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->config = Configuration::loadFromArray(
+            [
+                'module.enable' => ['memcookie' => true],
+            ],
+            '[ARRAY]',
+            'simplesaml'
+        );
+
+        $session = $this->createMock(Session::class);
+        $session->method('getData')->willReturn(['default-sp' => []]);
+        /** @var \SimpleSAML\Session $session */
+        $this->session = $session;
+
+
+        $this->authsources = Configuration::loadFromArray(
+            [
+                'default-sp' => ['saml:SP'],
+            ],
+            '[ARRAY]',
+            'simplesaml'
+        );
+        Configuration::setPreLoadedConfig($this->authsources, 'authsources.php', 'simplesaml');
+
+        $this->http_utils = new class () extends Utils\HTTP {
+            public static function setCookie(string $name, ?string $value, array $params = null, bool $throw = true): void
+            {
+                // stub
+            }
+
+            public static function redirectTrustedURL(string $url, array $parameters = []): void
+            {
+                // stub
+            }
+        };
+
+        $this->module_config = Configuration::loadFromArray(
+            [
+                'authsource' => 'default-sp',
+                'cookiename' => 'AuthMemCookie',
+                'username' => 'uid',
+                'groups' => null,
+                'memcache.host' => '127.0.0.1',
+                'memcache.port' => 11211,
+            ],
+            '[ARRAY]',
+            'simplesaml'
+        );
+        Configuration::setPreLoadedConfig($this->module_config, 'module_authmemcookie.php', 'simplesaml');
+    }
+
+
+    /**
+     * Test that a valid requests results in a RunnableResponse
+     * @return void
+     */
+    public function testMemcookie(): void
+    {
+        if (Utils\System::getOS() === Utils\System::WINDOWS) {
+            $this->markTestSkipped('This test can only run on Linux because of the availability of the memcached-extension.');
+        }
+
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['REQUEST_URI'] = '/module.php/memcookie/';
+        $_SERVER['SERVER_PROTOCOL'] = 'HTTP/1.1';
+
+        $request = Request::create(
+            '/module.php/memcookie/',
+            'GET',
+            []
+        );
+
+        $c = new Controller\Memcookie($this->config, $this->session);
+        $c->setHttpUtils($this->http_utils);
+        $c->setAuthSimple(new class ('admin') extends Auth\Simple {
+            public function requireAuth(array $params = []): void
+            {
+                // stub
+            }
+
+            public function getAttributes(): array
+            {
+                return ['uid' => ['dduck']];
+            }
+        });
+
+        /** @var \SimpleSAML\HTTP\RunnableResponse $response */
+        $response = $c->main($request);
+
+        $this->assertInstanceOf(RunnableResponse::class, $response);
+        $this->assertTrue($response->isSuccessful());
+    }
+}

@@ -15,6 +15,11 @@
       "email": "jaime.perez@uninett.no"
     }
   ],
+  "autoload": {
+      "psr-4": {
+          "SimpleSAML\\Module\\memcookie\\": "lib/"
+      }
+  },
   "require": {
     "php": ">=7.4 || ^8.0",
     "ext-memcached": "*",
@@ -23,7 +28,7 @@
     "simplesamlphp/simplesamlphp": "dev-master"
   },
   "require-dev": {
-    "simplesamlphp/simplesamlphp-test-framework": "^1.0.4"
+    "simplesamlphp/simplesamlphp-test-framework": "^1.0.5"
   },
   "support": {
     "issues": "https://github.com/simplesamlphp/simplesamlphp-module-memcookie/issues",
