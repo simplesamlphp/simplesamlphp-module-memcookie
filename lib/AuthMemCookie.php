@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace SimpleSAML\Module\memcookie;
 
 use Exception;
@@ -18,12 +20,12 @@ class AuthMemCookie
     /**
      * @var AuthMemCookie|null This is the singleton instance of this class.
      */
-    private static $instance = null;
+    private static ?AuthMemCookie $instance = null;
 
     /**
      * @var \SimpleSAML\Configuration The configuration for Auth MemCookie.
      */
-    private $config;
+    private Configuration $config;
 
 
     /**
