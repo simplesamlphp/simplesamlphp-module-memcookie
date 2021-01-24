@@ -97,9 +97,6 @@ class Memcookie
      */
     public function main(Request $request): RunnableResponse
     {
-        // load SimpleSAMLphp configuration
-        $ssp_cf = $this->config::getInstance();
-
         // load Auth MemCookie configuration
         $amc_cf = AuthMemCookie::getInstance();
 
