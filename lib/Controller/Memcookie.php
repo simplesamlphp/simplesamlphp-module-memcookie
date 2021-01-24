@@ -30,7 +30,7 @@ class Memcookie
     protected $auth_simple = Auth\Simple::class;
 
     /** @var \SimpleSAML\Configuration */
-    protected $config;
+    protected Configuration $config;
 
     /**
      * @var \SimpleSAML\Utils\HTTP|string
@@ -39,7 +39,7 @@ class Memcookie
     protected $http_utils = Utils\HTTP::class;
 
     /** @var \SimpleSAML\Session */
-    protected $session;
+    protected Session $session;
 
 
     /**

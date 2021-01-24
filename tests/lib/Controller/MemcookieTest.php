@@ -22,19 +22,19 @@ use Symfony\Component\HttpFoundation\Request;
 class MemcookieTest extends TestCase
 {
     /** @var \SimpleSAML\Configuration */
-    protected $authsources;
+    protected Configuration $authsources;
 
     /** @var \SimpleSAML\Configuration */
-    protected $config;
+    protected Configuration $config;
 
     /** @var \SimpleSAML\Utils\HTTP */
-    protected $http_utils;
+    protected Utils\Http $http_utils;
 
     /** @var \SimpleSAML\Configuration */
-    protected $module_config;
+    protected Configuration $module_config;
 
     /** @var \SimpleSAML\Session */
-    protected $session;
+    protected Session $session;
 
 
     /**
