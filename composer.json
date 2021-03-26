@@ -28,7 +28,7 @@
     "simplesamlphp/simplesamlphp": "dev-master"
   },
   "require-dev": {
-    "simplesamlphp/simplesamlphp-test-framework": "^1.0.5"
+    "simplesamlphp/simplesamlphp-test-framework": "^1.1.0"
   },
   "support": {
     "issues": "https://github.com/simplesamlphp/simplesamlphp-module-memcookie/issues",
