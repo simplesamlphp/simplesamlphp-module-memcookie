@@ -150,7 +150,8 @@ class AuthMemCookie
         $memcache->delete($sessionID);
 
         // delete the session cookie
-        Utils\HTTP::setCookie($cookieName, null);
+        $httpUtils = new Utils\HTTP();
+        $httpUtils->setCookie($cookieName, null);
     }
 
 

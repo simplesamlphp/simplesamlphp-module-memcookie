@@ -69,12 +69,12 @@ class MemcookieTest extends TestCase
         Configuration::setPreLoadedConfig($this->authsources, 'authsources.php', 'simplesaml');
 
         $this->http_utils = new class () extends Utils\HTTP {
-            public static function setCookie(string $name, ?string $value, array $params = null, bool $throw = true): void
+            public function setCookie(string $name, ?string $value, array $params = null, bool $throw = true): void
             {
                 // stub
             }
 
-            public static function redirectTrustedURL(string $url, array $parameters = []): void
+            public function redirectTrustedURL(string $url, array $parameters = []): void
             {
                 // stub
             }
@@ -102,7 +102,8 @@ class MemcookieTest extends TestCase
      */
     public function testMemcookie(): void
     {
-        if (Utils\System::getOS() === Utils\System::WINDOWS) {
+        $sysUtils = new Utils\System();
+        if ($sysUtils->getOS() === $sysUtils::WINDOWS) {
             $this->markTestSkipped('This test can only run on Linux because of the availability of the memcached-extension.');
         }
 

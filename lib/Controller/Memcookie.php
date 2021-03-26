@@ -33,10 +33,9 @@ class Memcookie
     protected Configuration $config;
 
     /**
-     * @var \SimpleSAML\Utils\HTTP|string
-     * @psalm-var \SimpleSAML\Utils\HTTP|class-string
+     * @var \SimpleSAML\Utils\HTTP
      */
-    protected $http_utils = Utils\HTTP::class;
+    protected $http_utils;
 
     /** @var \SimpleSAML\Session */
     protected Session $session;
@@ -111,9 +110,10 @@ class Memcookie
         $s->requireAuth();
 
         // generate session id and save it in a cookie
-        $sessionID = Utils\Random::generateID();
+        $randomUtils = new Utils\Random();
+        $sessionID = $randomUtils->generateID();
         $cookieName = $amc_cf->getCookieName();
-        $this->http_utils::setCookie($cookieName, $sessionID);
+        $this->http_utils->setCookie($cookieName, $sessionID);
 
         // generate the authentication information
         $attributes = $s->getAttributes();
@@ -167,6 +167,6 @@ class Memcookie
         $this->session->registerLogoutHandler($sourceId, '\SimpleSAML\Module\memcookie\AuthMemCookie', 'logoutHandler');
 
         // redirect the user back to this page to signal that the login is completed
-        return new RunnableResponse([$this->http_utils, 'redirectTrustedURL'], [$this->http_utils::getSelfURL()]);
+        return new RunnableResponse([$this->http_utils, 'redirectTrustedURL'], [$this->http_utils->getSelfURL()]);
     }
 }
