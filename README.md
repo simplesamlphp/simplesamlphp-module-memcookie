@@ -1,6 +1,8 @@
 ![Build Status](https://github.com/simplesamlphp/simplesamlphp-module-memcookie/workflows/CI/badge.svg?branch=master)
 [![Coverage Status](https://codecov.io/gh/simplesamlphp/simplesamlphp-module-memcookie/branch/master/graph/badge.svg)](https://codecov.io/gh/simplesamlphp/simplesamlphp-module-memcookie)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/simplesamlphp/simplesamlphp-module-memcookie/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/simplesamlphp/simplesamlphp-module-memcookie/?branch=master)
+[![Type Coverage](https://shepherd.dev/github/simplesamlphp/simplesamlphp-module-memcookie/coverage.svg)](https://shepherd.dev/github/simplesamlphp/simplesamlphp-module-memcookie)
+[![Psalm Level](https://shepherd.dev/github/simplesamlphp/simplesamlphp-module-memcookie/level.svg)](https://shepherd.dev/github/simplesamlphp/simplesamlphp-module-memcookie)
 
 SimpleSAMLphp AuthMemCookie module
 ==================================
@@ -28,8 +30,8 @@ Once you have installed SimpleSAMLphp, installing this module is very simple. Fi
 Composer](https://getcomposer.org/) if you haven't already. After installing Composer, just execute the following
 command in the root of your SimpleSAMLphp installation:
 
-```
-./composer.phar require simplesamlphp/simplesamlphp-module-memcookie:dev-master
+```shell
+composer.phar require simplesamlphp/simplesamlphp-module-memcookie:dev-master
 ```
 
 where `dev-master` instructs Composer to install the `master` branch from the Git repository. See the
@@ -45,7 +47,7 @@ Configuration
 The first step to use this module is to configure *Auth MemCookie* appropriately. The following example (that you can
 find also in `extra/auth_memcookie.conf`) might be helpful:
 
-```
+```apacheconf
 <Location />
     # This is a list of memcache servers which Auth MemCookie
     # should use. 
@@ -98,7 +100,7 @@ redirect you automatically to the IdP for authentication.
 In order to see all the environment variables you have available in the protected location, you can drop a PHP script
 like the following in there and access it from your browser after authenticating to your IdP:
 
-```
+```html
 <html>
  <body>
   <table>
