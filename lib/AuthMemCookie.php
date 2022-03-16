@@ -72,7 +72,7 @@ class AuthMemCookie
      */
     public function getCookieName(): string
     {
-        $cookieName = $this->config->getString('cookiename', 'AuthMemCookie');
+        $cookieName = $this->config->getOptionalString('cookiename', 'AuthMemCookie');
         if (!is_string($cookieName) || strlen($cookieName) === 0) {
             throw new Exception(
                 "Configuration option 'cookiename' contains an invalid value. This option should be a string."
@@ -90,7 +90,7 @@ class AuthMemCookie
      */
     public function getUsernameAttr(): ?string
     {
-        return $this->config->getString('username', null);
+        return $this->config->getOptionalString('username', null);
     }
 
 
@@ -101,7 +101,7 @@ class AuthMemCookie
      */
     public function getGroupsAttr(): ?string
     {
-        return $this->config->getString('groups', null);
+        return $this->config->getOptionalString('groups', null);
     }
 
 
@@ -112,8 +112,8 @@ class AuthMemCookie
      */
     public function getMemcache(): \Memcached
     {
-        $memcacheHost = $this->config->getString('memcache.host', '127.0.0.1');
-        $memcachePort = $this->config->getInteger('memcache.port', 11211);
+        $memcacheHost = $this->config->getOptionalString('memcache.host', '127.0.0.1');
+        $memcachePort = $this->config->getOptionalInteger('memcache.port', 11211);
 
         $class = class_exists('\Memcached') ? '\Memcached' : false;
 
