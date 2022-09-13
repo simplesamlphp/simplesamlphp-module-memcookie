@@ -1,11 +1,10 @@
+# SimpleSAMLphp AuthMemCookie module
+
 ![Build Status](https://github.com/simplesamlphp/simplesamlphp-module-memcookie/workflows/CI/badge.svg?branch=master)
 [![Coverage Status](https://codecov.io/gh/simplesamlphp/simplesamlphp-module-memcookie/branch/master/graph/badge.svg)](https://codecov.io/gh/simplesamlphp/simplesamlphp-module-memcookie)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/simplesamlphp/simplesamlphp-module-memcookie/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/simplesamlphp/simplesamlphp-module-memcookie/?branch=master)
 [![Type Coverage](https://shepherd.dev/github/simplesamlphp/simplesamlphp-module-memcookie/coverage.svg)](https://shepherd.dev/github/simplesamlphp/simplesamlphp-module-memcookie)
 [![Psalm Level](https://shepherd.dev/github/simplesamlphp/simplesamlphp-module-memcookie/level.svg)](https://shepherd.dev/github/simplesamlphp/simplesamlphp-module-memcookie)
-
-SimpleSAMLphp AuthMemCookie module
-==================================
 
 This module implements [Auth MemCookie](https://zenprojects.github.io/Apache-Authmemcookie-Module/) support for SimpleSAMLphp. This allows
 you to integrate SimpleSAMLphp with web applications written in languages other than PHP.
@@ -14,8 +13,7 @@ you to integrate SimpleSAMLphp with web applications written in languages other 
 the attributes found in this data. It also allows you to use the default **Apache access control** features to restrict
 access to your site.
 
-Requisites
-----------
+## Requisites
 
 This module requires you to install and set up the following requirements:
 
@@ -23,8 +21,7 @@ This module requires you to install and set up the following requirements:
 * A *memcache* server.
 * [Auth MemCookie](https://zenprojects.github.io/Apache-Authmemcookie-Module/) .
 
-Installation
-------------
+## Installation
 
 Once you have installed SimpleSAMLphp, installing this module is very simple. First of all, you will need to [download
 Composer](https://getcomposer.org/) if you haven't already. After installing Composer, just execute the following
@@ -41,8 +38,8 @@ stable version of the module.
 The module is enabled by default. If you want to disable the module once installed, you just need to create a file named
 `disable` in the `modules/memcookie` directory inside your SimpleSAMLphp installation.
 
-Configuration
--------------
+## Configuration
+
 
 The first step to use this module is to configure *Auth MemCookie* appropriately. The following example (that you can
 find also in `extra/auth_memcookie.conf`) might be helpful:
