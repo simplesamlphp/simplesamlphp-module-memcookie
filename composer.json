@@ -17,7 +17,7 @@
   ],
   "autoload": {
       "psr-4": {
-          "SimpleSAML\\Module\\memcookie\\": "lib/"
+          "SimpleSAML\\Module\\memcookie\\": "src/"
       }
   },
   "require": {
