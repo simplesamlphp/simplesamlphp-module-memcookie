@@ -35,11 +35,15 @@ where `dev-master` instructs Composer to install the `master` branch from the Gi
 [releases](https://github.com/simplesamlphp/simplesamlphp-module-memcookie/releases) available if you want to use a
 stable version of the module.
 
-The module is enabled by default. If you want to disable the module once installed, you just need to create a file named
-`disable` in the `modules/memcookie` directory inside your SimpleSAMLphp installation.
-
 ## Configuration
 
+Next thing you need to do is to enable the module:
+
+in `config.php`, search for the `module.enable` key and set `memcookie` to true:
+
+```php
+    'module.enable' => [ 'memcookie' => true, … ],
+```
 
 The first step to use this module is to configure *Auth MemCookie* appropriately. The following example (that you can
 find also in `extra/auth_memcookie.conf`) might be helpful:
