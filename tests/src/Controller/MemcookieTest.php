@@ -104,7 +104,9 @@ class MemcookieTest extends TestCase
     {
         $sysUtils = new Utils\System();
         if ($sysUtils->getOS() === $sysUtils::WINDOWS) {
-            $this->markTestSkipped('This test can only run on Linux because of the availability of the memcached-extension.');
+            $this->markTestSkipped(
+                'This test can only run on Linux because of the availability of the memcached-extension.',
+            );
         }
 
         $_SERVER['REQUEST_METHOD'] = 'GET';
