@@ -7,7 +7,6 @@ namespace SimpleSAML\Test\Module\memcookie\Controller;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Auth;
 use SimpleSAML\Configuration;
-use SimpleSAML\Error;
 use SimpleSAML\HTTP\RunnableResponse;
 use SimpleSAML\Module\memcookie\Controller;
 use SimpleSAML\Session;

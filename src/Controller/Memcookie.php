@@ -12,7 +12,6 @@ use SimpleSAML\Module\memcookie\AuthMemCookie;
 use SimpleSAML\Session;
 use SimpleSAML\Utils;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Controller class for the memcookie module.
