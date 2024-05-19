@@ -56,6 +56,7 @@ class Memcookie
     ) {
         $this->config = $config;
         $this->session = $session;
+        $this->http_utils = new Utils\HTTP();
     }
 
 
