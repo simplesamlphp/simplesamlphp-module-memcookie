@@ -75,7 +75,7 @@ class AuthMemCookie
         $cookieName = $this->config->getOptionalString('cookiename', 'AuthMemCookie');
         if (!is_string($cookieName) || strlen($cookieName) === 0) {
             throw new Exception(
-                "Configuration option 'cookiename' contains an invalid value. This option should be a string."
+                "Configuration option 'cookiename' contains an invalid value. This option should be a string.",
             );
         }
 

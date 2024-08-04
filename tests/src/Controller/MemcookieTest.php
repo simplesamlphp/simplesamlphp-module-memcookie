@@ -49,7 +49,7 @@ class MemcookieTest extends TestCase
                 'module.enable' => ['memcookie' => true],
             ],
             '[ARRAY]',
-            'simplesaml'
+            'simplesaml',
         );
 
         $session = $this->createMock(Session::class);
@@ -63,7 +63,7 @@ class MemcookieTest extends TestCase
                 'default-sp' => ['saml:SP'],
             ],
             '[ARRAY]',
-            'simplesaml'
+            'simplesaml',
         );
         Configuration::setPreLoadedConfig($this->authsources, 'authsources.php', 'simplesaml');
 
@@ -89,7 +89,7 @@ class MemcookieTest extends TestCase
                 'memcache.port' => 11211,
             ],
             '[ARRAY]',
-            'simplesaml'
+            'simplesaml',
         );
         Configuration::setPreLoadedConfig($this->module_config, 'module_authmemcookie.php', 'simplesaml');
     }
@@ -115,7 +115,7 @@ class MemcookieTest extends TestCase
         $request = Request::create(
             '/module.php/memcookie/',
             'GET',
-            []
+            [],
         );
 
         $c = new Controller\Memcookie($this->config, $this->session);

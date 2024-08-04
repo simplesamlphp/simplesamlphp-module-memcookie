@@ -52,7 +52,7 @@ class Memcookie
      */
     public function __construct(
         Configuration $config,
-        Session $session
+        Session $session,
     ) {
         $this->config = $config;
         $this->session = $session;
@@ -125,7 +125,7 @@ class Memcookie
         if ($usernameAttr === null || !array_key_exists($usernameAttr, $attributes)) {
             throw new Error\Exception(
                 "The user doesn't have an attribute named '" . $usernameAttr .
-                "'. This attribute is expected to contain the username."
+                "'. This attribute is expected to contain the username.",
             );
         }
         $authData['UserName'] = $attributes[$usernameAttr];
@@ -136,7 +136,7 @@ class Memcookie
             if (!array_key_exists($groupsAttr, $attributes)) {
                 throw new Error\Exception(
                     "The user doesn't have an attribute named '" . $groupsAttr .
-                    "'. This attribute is expected to contain the groups the user is a member of."
+                    "'. This attribute is expected to contain the groups the user is a member of.",
                 );
             }
             $authData['Groups'] = $attributes[$groupsAttr];
