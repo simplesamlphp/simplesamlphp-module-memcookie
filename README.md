@@ -1,6 +1,6 @@
 # SimpleSAMLphp AuthMemCookie module
 
-![Build Status](https://github.com/simplesamlphp/simplesamlphp-module-memcookie/workflows/CI/badge.svg?branch=master)
+![Build Status](https://github.com/simplesamlphp/simplesamlphp-module-memcookie/actions/workflows/php.yml/badge.svg)
 [![Coverage Status](https://codecov.io/gh/simplesamlphp/simplesamlphp-module-memcookie/branch/master/graph/badge.svg)](https://codecov.io/gh/simplesamlphp/simplesamlphp-module-memcookie)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/simplesamlphp/simplesamlphp-module-memcookie/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/simplesamlphp/simplesamlphp-module-memcookie/?branch=master)
 [![Type Coverage](https://shepherd.dev/github/simplesamlphp/simplesamlphp-module-memcookie/coverage.svg)](https://shepherd.dev/github/simplesamlphp/simplesamlphp-module-memcookie)
