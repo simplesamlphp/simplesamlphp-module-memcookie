@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @package SimpleSAML\Test
  */
-class MemcookieTest extends TestCase
+final class MemcookieTest extends TestCase
 {
     /** @var \SimpleSAML\Configuration */
     protected Configuration $authsources;
@@ -68,7 +68,7 @@ class MemcookieTest extends TestCase
         Configuration::setPreLoadedConfig($this->authsources, 'authsources.php', 'simplesaml');
 
         $this->http_utils = new class () extends Utils\HTTP {
-            public function setCookie(string $name, ?string $value, array $params = null, bool $throw = true): void
+            public function setCookie(string $name, ?string $value, ?array $params = null, bool $throw = true): void
             {
                 // stub
             }
@@ -132,7 +132,6 @@ class MemcookieTest extends TestCase
             }
         });
 
-        /** @var \SimpleSAML\HTTP\RunnableResponse $response */
         $response = $c->main($request);
 
         $this->assertInstanceOf(RunnableResponse::class, $response);
