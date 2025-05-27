@@ -1,4 +1,8 @@
+---
+
 memcookie-main:
-  path:      /
-  defaults:  { _controller: 'SimpleSAML\Module\memcookie\Controller\Memcookie::main' }
-  methods:   [GET]
+  path: /
+  defaults: {
+    _controller: 'SimpleSAML\Module\memcookie\Controller\Memcookie::main'
+  }
+  methods: [GET]
