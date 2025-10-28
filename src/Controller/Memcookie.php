@@ -104,6 +104,8 @@ class Memcookie
 
         $sourceId = $amc_cf->getAuthSource();
         $simple = $this->auth_simple;
+
+        /** @var \SimpleSAML\Auth\Simple $s */
         $s = new $simple($sourceId);
 
         // check if the user is authorized. We attempt to authenticate the user if not

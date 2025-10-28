@@ -9,6 +9,8 @@ use Memcached;
 use SimpleSAML\Configuration;
 use SimpleSAML\Utils;
 
+use function strlen;
+
 /**
  * This is a helper class for the Auth MemCookie module.
  * It handles the configuration, and implements the logout handler.
@@ -73,7 +75,7 @@ class AuthMemCookie
     public function getCookieName(): string
     {
         $cookieName = $this->config->getOptionalString('cookiename', 'AuthMemCookie');
-        if (!is_string($cookieName) || strlen($cookieName) === 0) {
+        if (strlen($cookieName) === 0) {
             throw new Exception(
                 "Configuration option 'cookiename' contains an invalid value. This option should be a string.",
             );

@@ -27,7 +27,7 @@ final class MemcookieTest extends TestCase
     protected Configuration $config;
 
     /** @var \SimpleSAML\Utils\HTTP */
-    protected Utils\Http $http_utils;
+    protected Utils\HTTP $http_utils;
 
     /** @var \SimpleSAML\Configuration */
     protected Configuration $module_config;
@@ -54,7 +54,6 @@ final class MemcookieTest extends TestCase
 
         $session = $this->createMock(Session::class);
         $session->method('getData')->willReturn(['default-sp' => []]);
-        /** @var \SimpleSAML\Session $session */
         $this->session = $session;
 
 
@@ -68,11 +67,14 @@ final class MemcookieTest extends TestCase
         Configuration::setPreLoadedConfig($this->authsources, 'authsources.php', 'simplesaml');
 
         $this->http_utils = new class () extends Utils\HTTP {
+            /** @param array<mixed> $params */
             public function setCookie(string $name, ?string $value, ?array $params = null, bool $throw = true): void
             {
                 // stub
             }
 
+
+            /** @param array<mixed> $parameters */
             public function redirectTrustedURL(string $url, array $parameters = []): void
             {
                 // stub
@@ -121,11 +123,14 @@ final class MemcookieTest extends TestCase
         $c = new Controller\Memcookie($this->config, $this->session);
         $c->setHttpUtils($this->http_utils);
         $c->setAuthSimple(new class ('admin') extends Auth\Simple {
+            /** @param array<mixed> $params */
             public function requireAuth(array $params = []): void
             {
                 // stub
             }
 
+
+            /** @return array<mixed> */
             public function getAttributes(): array
             {
                 return ['uid' => ['dduck']];
