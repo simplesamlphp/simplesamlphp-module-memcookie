@@ -20,7 +20,7 @@ use function strlen;
 class AuthMemCookie
 {
     /**
-     * @var AuthMemCookie|null This is the singleton instance of this class.
+     * @var \SimpleSAML\Module\memcookie\AuthMemCookie|null This is the singleton instance of this class.
      */
     private static ?AuthMemCookie $instance = null;
 
