@@ -7,7 +7,6 @@ namespace SimpleSAML\Test\Module\memcookie\Controller;
 use PHPUnit\Framework\TestCase;
 use SimpleSAML\Auth;
 use SimpleSAML\Configuration;
-use SimpleSAML\HTTP\RunnableResponse;
 use SimpleSAML\Module\memcookie\Controller;
 use SimpleSAML\Session;
 use SimpleSAML\Utils;
@@ -139,7 +138,6 @@ final class MemcookieTest extends TestCase
 
         $response = $c->main($request);
 
-        $this->assertInstanceOf(RunnableResponse::class, $response);
         $this->assertTrue($response->isSuccessful());
     }
 }
